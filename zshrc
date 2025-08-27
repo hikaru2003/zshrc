@@ -1,0 +1,189 @@
+# Path to your oh-my-zsh installation.
+export ZSH="$HOME/.oh-my-zsh"
+
+# Set name of the theme to load --- if set to "random", it will
+# load a random theme each time oh-my-zsh is loaded, in which case,
+# to know which specific one was loaded, run: echo $RANDOM_THEME
+# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
+ZSH_THEME="agnoster"
+
+# Set list of themes to pick from when loading at random
+# Setting this variable when ZSH_THEME=random will cause zsh to load
+# a theme from this variable instead of looking in $ZSH/themes/
+# If set to an empty array, this variable will have no effect.
+# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
+
+# Uncomment the following line to use case-sensitive completion.
+# CASE_SENSITIVE="true"
+
+# Uncomment the following line to use hyphen-insensitive completion.
+# Case-sensitive completion must be off. _ and - will be interchangeable.
+# HYPHEN_INSENSITIVE="true"
+
+# Uncomment one of the following lines to change the auto-update behavior
+# zstyle ':omz:update' mode disabled  # disable automatic updates
+# zstyle ':omz:update' mode auto      # update automatically without asking
+# zstyle ':omz:update' mode reminder  # just remind me to update when it's time
+
+# Uncomment the following line to change how often to auto-update (in days).
+# zstyle ':omz:update' frequency 13
+
+# Uncomment the following line if pasting URLs and other text is messed up.
+# DISABLE_MAGIC_FUNCTIONS="true"
+
+# Uncomment the following line to disable colors in ls.
+# DISABLE_LS_COLORS="true"
+
+# Uncomment the following line to disable auto-setting terminal title.
+# DISABLE_AUTO_TITLE="true"
+
+# Uncomment the following line to enable command auto-correction.
+# ENABLE_CORRECTION="true"
+
+# Uncomment the following line to display red dots whilst waiting for completion.
+# You can also set it to another string to have that shown instead of the default red dots.
+# e.g. COMPLETION_WAITING_DOTS="%F{yellow}waiting...%f"
+# Caution: this setting can cause issues with multiline prompts in zsh < 5.7.1 (see #5765)
+# COMPLETION_WAITING_DOTS="true"
+
+# Uncomment the following line if you want to disable marking untracked files
+# under VCS as dirty. This makes repository status check for large repositories
+# much, much faster.
+# DISABLE_UNTRACKED_FILES_DIRTY="true"
+
+# Uncomment the following line if you want to change the command execution time
+# stamp shown in the history command output.
+# You can set one of the optional three formats:
+# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+# or set a custom format using the strftime function format specifications,
+# see 'man strftime' for details.
+HIST_STAMPS="yyyy-mm-dd"
+
+# Which plugins would you like to load?
+# Standard plugins can be found in $ZSH/plugins/
+# Custom plugins may be added to $ZSH_CUSTOM/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+# Add wisely, as too many plugins slow down shell startup.
+plugins=(git)
+
+# set oh-my-zsh
+source $ZSH/oh-my-zsh.sh
+
+# User configuration
+
+# export MANPATH="/usr/local/man:$MANPATH"
+
+rm -rf /Users/hikaru/OneDrive\ -\ keio.jp
+# You may need to manually set your language environment
+# export LANG=en_US.UTF-8
+
+# Preferred editor for local and remote sessions
+# if [[ -n $SSH_CONNECTION ]]; then
+#   export EDITOR='vim'
+# else
+#   export EDITOR='mvim'
+# fi
+
+# Compilation flags
+# export ARCHFLAGS="-arch x86_64"
+
+# Set personal aliases, overriding those provided by oh-my-zsh libs,
+# plugins, and themes. Aliases can be placed here, though oh-my-zsh
+# users are encouraged to define aliases within the ZSH_CUSTOM folder.
+# For a full list of active aliases, run `alias`.
+#
+# Example aliases
+# alias zshconfig="mate ~/.zshrc"
+# alias ohmyzsh="mate ~/.oh-my-zsh"
+alias c=clear
+alias change="source ~/.zshrc"
+alias ll="ls -lah"
+alias gccf="gcc -Wall -Wextra -Werror"
+alias gc="git commit -m"
+alias gs="git status"
+alias gg="git log"
+alias gf="git fetch"
+alias gsh="git stash"
+alias gb="git branch"
+alias gch="git checkout"
+alias gm="git merge"
+alias logitc="ssh ub795196@logex02.educ.cc.keio.ac.jp"
+alias norminette="/Users/hikaru//Library/Python/3.9/bin/norminette"
+alias lst="ls -t | head -20"
+alias logkugahara="ssh hikaru@kugahara.i.sslab.ics.keio.ac.jp"
+alias logikaho="ssh morisaki@ikaho.i.sslab.ics.keio.ac.jp"
+alias loggumma="ssh morisaki@gumma"
+alias logann="ssh morisaki@ann.i.sslab.ics.keio.ac.jp"
+
+# docker alias
+alias up="docker compose up --build -d"
+alias down="docker compose down"
+#alias exec="docker exec -it"
+alias prune="docker system prune -a --volumes -f"
+alias logs="docker logs -f"
+# fzf
+cd-fzf-find() {
+  local dir
+  dir=$(find ${1:-.} -path '*/\.*' -prune \
+                  -o -type d -print 2> /dev/null | fzf +m) &&
+  cd "$dir"
+}
+alias fd=cd-fzf-find
+
+vim-fzf-find() {
+    local FILE=$(find ./ -path '*/\.*' -prune -o -type f -print 2> /dev/null | fzf --preview 'batcat --style=numbers --color=always --line-range :500 {}' +m) &&
+    vim "$FILE"
+}
+alias fv=vim-fzf-find
+
+#prompt castamize
+
+source ~/.zsh/git-prompt.sh
+# addされていない変更を「*」commitされていない変更を「+」で示す
+GIT_PS1_SHOWDIRTYSTATE=true
+# addされていない新規ファイルの存在を「%」で示す
+GIT_PS1_SHOWUNTRACKEDFILES=true
+# stashがある場合は「$」で示す
+GIT_PS1_SHOWSTASHSTATE=true
+# upstreamと同期「=」進んでいる「>」遅れている「<」で示す
+GIT_PS1_SHOWUPSTREAM=auto
+
+setopt PROMPT_SUBST
+
+export LSCOLORS=exfxcxdxcxegedabagacad
+FACE_LIST=("🐬" "🐰" "🐣" "🐧" "🐒" "🐴" "🐶" "🦊" "🐺" "🐯" "🐨" "🦭" "🐻" "🐢" "🦉" "🦁" "🦔" "🦈" "🐳" "🐊" "🐼" "🐐" "🦙" "🐪")
+alias randomize_face='FACE1=${FACE_LIST[$((1 + $RANDOM % ${#FACE_LIST[@]}))]} FACE2=${FACE_LIST[$((1 + $RANDOM % ${#FACE_LIST[@]}))]}'
+precmd () { randomize_face }
+setopt PROMPT_SUBST
+function git_color() {
+  local git_info="$(__git_ps1 "%s")"
+  if [[ $git_info == *"%"* ]] || [[ $git_info == *"*"* ]]; then
+    echo '%F{red}'
+  elif [[ $git_info == *"+"* ]]; then
+    echo '%F{yellow}'
+  else
+    echo '%F{#00ff82}'
+  fi
+}
+
+function get_status() {
+	local git_status="$(__git_ps1 "%s")"
+	if [[ $git_status == "" ]] then
+		:
+	else
+		echo "%f[$(git_color)$(__git_ps1 "%s")%f] "
+	fi
+}
+
+#PS1='$FACE1 ${fg[white]}${bg[blue]}%~${reset_color} $(get_status) $FACE2
+PS1='$FACE1${fg[magenta]} %~ $(get_status)${reset_color} $FACE2
+$> '
+
+# Go
+export GOPATH=$HOME/go
+export PATH=$PATH:$GOPATH/bin
+export PATH=$PATH:/usr/local/texlive/2022/bin/universal-darwin
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
