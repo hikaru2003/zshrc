@@ -148,3 +148,14 @@ $> '
 export NVM_DIR="$HOME/.nvm" 
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" 
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+
+# ==============================================================================
+# 7. 入力サジェスト (zsh-autosuggestions)
+# ==============================================================================
+# プラグインが存在する場合のみ読み込む
+if [ -f "$HOME/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh" ]; then
+    source "$HOME/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh"
+    
+    # 補完を確定させるキーバインド（Ctrl + Space なども設定可能）
+    # デフォルトでは「→」キーで確定します
+fi
