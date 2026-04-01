@@ -39,9 +39,6 @@ alias change="source ~/.zshrc"
 alias ll="ls -lah"
 alias grep='grep --color=auto'
 
-# 安全対策: rm を直接使わず警告を出す（必要なら \rm で実行）
-alias rm='echo "rm is disabled. Use command rm or trash instead."'
-
 # Git 関連
 alias ga="git add"
 alias gc="git commit -m"
