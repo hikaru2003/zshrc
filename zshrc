@@ -19,6 +19,9 @@ autoload -U colors; colors
 # 1. 基本設定 / 履歴強化
 # ==============================================================================
 export LANG=en_US.UTF-8
+export CLICOLOR=1
+export LSCOLORS=exfxcxdxcxegedabagacad
+export LS_COLORS='di=1;36:ln=35:so=32:pi=33:ex=31:bd=34;46:cd=34;43:su=30;41:sg=30;46:tw=30;42:ow=30;43'
 HISTFILE=~/.zsh_history
 HISTSIZE=1000000
 SAVEHIST=1000000
@@ -41,7 +44,7 @@ alias rm='echo "rm is disabled. Use command rm or trash instead."'
 
 # Git 関連
 alias ga="git add"
-alias gc"git commit -m"
+alias gc="git commit -m"
 alias gp="git push"
 alias gl="git pull"
 alias gs="git status"
@@ -159,7 +162,18 @@ export NVM_DIR="$HOME/.nvm"
 # プラグインが存在する場合のみ読み込む
 if [ -f "$HOME/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh" ]; then
     source "$HOME/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh"
-    
-    # 補完を確定させるキーバインド（Ctrl + Space なども設定可能）
-    # デフォルトでは「→」キーで確定します
 fi
+
+# ==============================================================================
+# 8. 入力履歴検索 (zsh-history-substring-search)
+# ==============================================================================
+# プラグインが存在する場合のみ読み込む
+if [ -f "$HOME/.zsh/zsh-history-substring-search/zsh-history-substring-search.zsh" ]; then
+    source "$HOME/.zsh/zsh-history-substring-search/zsh-history-substring-search.zsh"
+fi
+
+# キーバインドの設定
+# 上矢印: 履歴検索（入力があれば絞り込み、なければ通常の戻る）
+bindkey '^[[A' history-substring-search-up
+# 下矢印: 履歴検索（入力があれば絞り込み、なければ通常の進む）
+bindkey '^[[B' history-substring-search-down
