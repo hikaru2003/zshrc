@@ -40,10 +40,14 @@ alias grep='grep --color=auto'
 alias rm='echo "rm is disabled. Use command rm or trash instead."'
 
 # Git 関連
+alias ga="git add"
+alias gc"git commit -m"
+alias gp="git push"
+alias gl="git pull"
 alias gs="git status"
-alias gc="git commit -m"
 alias gg="git log --oneline --graph"
 alias gch="git checkout"
+alias gb="git branch"
 
 # ==============================================================================
 # 3. 外部ツール連携 (fzf / zoxide / mise)
