@@ -38,7 +38,13 @@ if [ ! -d "$HOME/.zsh/zsh-autosuggestions" ]; then
     git clone https://github.com/zsh-users/zsh-autosuggestions "$HOME/.zsh/zsh-autosuggestions"
 fi
 
-# 6. fzf の有効化
+# 6. zsh-history-substring-search のダウンロード
+if [ ! -d "$HOME/.zsh/zsh-history-substring-search" ]; then
+    echo "📥 Cloning zsh-history-substring-search..."
+    git clone https://github.com/zsh-users/zsh-history-substring-search /Users/hikaru/.zsh/zsh-history-substring-search "$HOME/.zsh/zsh-history-substring-search"
+fi
+
+# 7. fzf の有効化
 if command -v fzf &> /dev/null; then
     $(brew --prefix 2>/dev/null || echo "/usr/share/doc/fzf/examples")/opt/fzf/install --all
 fi
