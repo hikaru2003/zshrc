@@ -1,4 +1,21 @@
 # ==============================================================================
+# 0. PATHの設定 (ここが重要！)
+# ==============================================================================
+# OS標準のパスを確実に含め、既存のPATHを引き継ぐ
+export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
+
+# Homebrewを使っている場合 (macOS)
+if [ -d "/opt/homebrew/bin" ]; then
+    export PATH="/opt/homebrew/bin:$PATH"
+fi
+
+# 自分のローカルツールパスを追加
+[ -d "$HOME/.local/bin" ] && export PATH="$PATH:$HOME/.local/bin"
+
+# 色設定用の変数を有効化する
+autoload -U colors; colors
+
+# ==============================================================================
 # 1. 基本設定 / 履歴強化
 # ==============================================================================
 export LANG=en_US.UTF-8
@@ -77,9 +94,10 @@ GIT_PROMPT_PATHS=(
     "/usr/share/git-core/git-prompt.sh"
 )
 
-for path in $GIT_PROMPT_PATHS; do
-    if [ -f "$path" ]; then
-        source "$path"
+# 注意: zsh では path は PATH と連動する特別な配列。for path は PATH を壊すので別名を使う
+for _git_prompt_path in $GIT_PROMPT_PATHS; do
+    if [ -f "$_git_prompt_path" ]; then
+        source "$_git_prompt_path"
         break
     fi
 done
@@ -120,7 +138,7 @@ function get_status() {
 # プロンプト反映
 setopt PROMPT_SUBST 
 precmd() { randomize_face } 
-PS1='$FACE1${fg[magenta]} %~ $(get_status)${reset_color}$FACE2
+PS1='$FACE1 %F{magenta}%~%f $(get_status)$FACE2
 $> ' 
 
 # ==============================================================================
@@ -129,4 +147,4 @@ $> '
 # NVM (存在する場合のみ読み込み)
 export NVM_DIR="$HOME/.nvm" 
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" 
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" 
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
