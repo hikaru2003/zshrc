@@ -48,7 +48,7 @@ alias gc="git commit -m"
 alias gp="git push"
 alias gl="git pull"
 alias gs="git status"
-alias gg="git log --oneline --graph"
+alias gg="git log"
 alias gch="git checkout"
 alias gb="git branch"
 
