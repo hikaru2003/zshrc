@@ -117,8 +117,7 @@ GIT_PS1_SHOWUPSTREAM=auto
 # 絵文字ランダム表示設定
 FACE_LIST=("🐬" "🐰" "🐣" "🐧" "🐒" "🐴" "🐶" "🦊" "🐺" "🐯" "🐨" "🦭" "🐻" "🐢" "🦉" "🦁" "🦔" "🦈" "🐳" "🐊" "🐼" "🐐" "🦙" "🐪") 
 function randomize_face() {
-    FACE1=${FACE_LIST[$((1 + $RANDOM % ${#FACE_LIST[@]}))]}
-    FACE2=${FACE_LIST[$((1 + $RANDOM % ${#FACE_LIST[@]}))]}
+    FACE=${FACE_LIST[$((1 + $RANDOM % ${#FACE_LIST[@]}))]}
 }
 
 function git_color() {
@@ -144,7 +143,7 @@ function get_status() {
 # プロンプト反映
 setopt PROMPT_SUBST 
 precmd() { randomize_face } 
-PS1='$FACE1 %F{magenta}%~%f $(get_status)$FACE2
+PS1='[%n@%m] %F{magenta}%~%f $(get_status)$FACE
 $> ' 
 
 # ==============================================================================
