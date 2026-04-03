@@ -36,8 +36,9 @@ unsetopt BEEP               # うるさい音を消す
 # ==============================================================================
 alias c=clear
 alias change="source ~/.zshrc"
-alias ll="ls -lah"
-alias lst="ls -lt | head -n 20"
+alias ls="ls --color=auto"
+alias ll="ls -lah --color=auto"
+alias lst="ls -lt --color=auto | head -n 20"
 alias grep='grep --color=auto'
 
 # Git 関連
