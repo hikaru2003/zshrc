@@ -1,4 +1,6 @@
-o "🚀 Starting environment setup for Hikaru..."
+#!/bin/bash
+
+echo "🚀 Starting environment setup for Hikaru..."
 
 # 1. OSの判定
 OS="$(uname)"
@@ -10,13 +12,22 @@ if [ "$OS" == "Darwin" ]; then
     if ! command -v brew &> /dev/null; then
         echo "⚠️ Homebrew is not installed. Please install it first: https://brew.sh/"
     else
-        brew install fzf zoxide nvm bat
+        brew install fzf zoxide nvm bat git
+	# macOS (Homebrew) の fzf 補完設定
+        $(brew --prefix)/opt/fzf/install --all --no-bash --no-fish
     fi
 elif [ "$OS" == "Linux" ]; then
     echo "🐧 Detected Linux. Using apt..."
-    sudo apt update && sudo apt install -y fzf zoxide bat git
+    sudo apt update && sudo apt install -y fzf zoxide bat git curl
     # Linuxでのnvmはcurl経由が一般的
-    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+    if [ ! -d "$HOME/.nvm" ]; then
+	curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+    fi
+    # Linux (apt) の bat は 'batcat' というコマンド名になることがあるための対策
+    if command -v batcat &> /dev/null && ! command -v bat &> /dev/null; then
+        mkdir -p ~/.local/bin
+        ln -s /usr/bin/batcat ~/.local/bin/bat
+    fi
 fi
 
 # 3. ディレクトリの作成
@@ -32,21 +43,17 @@ else
     echo "✅ git-prompt.sh already exists."
 fi
 
-# 5. zsh-autosuggestions のダウンロード
+# 5. zshプラグイン のダウンロード
+# zsh-autosuggestions
 if [ ! -d "$HOME/.zsh/zsh-autosuggestions" ]; then
     echo "📥 Cloning zsh-autosuggestions..."
     git clone https://github.com/zsh-users/zsh-autosuggestions "$HOME/.zsh/zsh-autosuggestions"
 fi
 
-# 6. zsh-history-substring-search のダウンロード
+# zsh-history-substring-search のダウンロード
 if [ ! -d "$HOME/.zsh/zsh-history-substring-search" ]; then
     echo "📥 Cloning zsh-history-substring-search..."
     git clone https://github.com/zsh-users/zsh-history-substring-search "$HOME/.zsh/zsh-history-substring-search"
-fi
-
-# 7. fzf の有効化
-if command -v fzf &> /dev/null; then
-    $(brew --prefix 2>/dev/null || echo "/usr/share/doc/fzf/examples")/opt/fzf/install --all
 fi
 
 echo "✨ Setup complete! Please restart your terminal or run 'source ~/.zshrc'"
